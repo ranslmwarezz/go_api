@@ -42,16 +42,20 @@ func main() {
 		ctx.JSON(200, gin.H{"message": "pong"})
 	})
 
+	route := "/products/:productId"
+
+	half := route[:9]
+
 	// Criando a rota para buscar os produtos com dados mockados
-	server.GET("/products", productController.GetProducts)
+	server.GET(half, productController.GetProducts)
 
-	server.POST("/products", productController.CreateProduct)
+	server.POST(half, productController.CreateProduct)
 
-	server.GET("/products/:productId", productController.GetProductByID)
+	server.GET(route, productController.GetProductByID)
 
-	server.DELETE("/products/:productId", productController.DeleteById)
+	server.DELETE(route, productController.DeleteById)
 
-	server.PUT("/products/:productId", productController.UpdateById)
+	server.PUT(route, productController.UpdateById)
 
 	if err := server.Run(":8080"); err != nil {
 		log.Fatal(err)

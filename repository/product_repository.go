@@ -43,6 +43,10 @@ func (pr *ProductRepository) GetProducts() ([]model.Product, error) {
 
 	}
 
+	if rows.Err() != nil {
+		return []model.Product{}, fmt.Errorf("Error reading results: %w", err)
+	}
+
 	return productList, nil
 
 }

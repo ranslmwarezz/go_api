@@ -27,7 +27,7 @@ func main() {
 		panic(err)
 	}
 
-	// Camda repository
+	// Camada repository
 	ProductRepository := repository.NewProductRepository(dbConnection)
 
 	// Camada usecase
@@ -45,6 +45,16 @@ func main() {
 	// Criando a rota para buscar os produtos com dados mockados
 	server.GET("/products", productController.GetProducts)
 
-	server.Run(":8080")
+	server.POST("/products", productController.CreateProduct)
+
+	server.GET("/products/:productId", productController.GetProductByID)
+
+	server.DELETE("/products/:productId", productController.DeleteById)
+
+	server.PUT("/products/:productId", productController.UpdateById)
+
+	if err := server.Run(":8080"); err != nil {
+		log.Fatal(err)
+	}
 
 }
